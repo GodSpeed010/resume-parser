@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from 'react';
 import FileCard from './components/FileCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 function App() {
   const [selectedFile, setSelectedFile] = useState();
@@ -20,10 +21,10 @@ function App() {
         method: 'GET'
       }
     ).then(res => res.json())
-    .then(files => {
-      console.log(files);
-      setUserFiles(files);
-    });
+      .then(files => {
+        console.log(files);
+        setUserFiles(files);
+      });
 
   }
   const handleSearchInput = (e) => {
@@ -44,10 +45,10 @@ function App() {
         body: formData,
       }
     ).then(res => res.text())
-    .then((text) => {
-      console.log('Received pdf text' + text);
-      setPdfText(text);
-    })
+      .then((text) => {
+        console.log('Received pdf text' + text);
+        setPdfText(text);
+      })
   };
 
   return (
@@ -55,11 +56,11 @@ function App() {
       <div>
         <input type="file" name="pdfFile" onChange={changeHandler} />
         <div>
-          <button onClick={handleSubmission}>Submit</button>
+        <Button onClick={handleSubmission} variant="primary" size='sm' style={{margin: '5px 0 20px 0'}}>Upload</Button>
         </div>
         <div>
-        <input type="text" onChange={handleSearchInput} />
-        <button onClick={handleSearchClick}>Search</button>
+          <input type="text" onChange={handleSearchInput} />
+          <button onClick={handleSearchClick}>Search</button>
         </div>
       </div>
       {userFiles.map(file => <FileCard file={file} />)}
