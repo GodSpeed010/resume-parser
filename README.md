@@ -4,14 +4,14 @@ A PDF Resume Parser and Search System meant to simulate what a recruiter would u
 
 ## Description
 
-This is a full-stack project that parses Resume PDF files and displays a dashboard allowing a user to search for keywoards. Doing so will populate a list of all candidates whos Resume contained the keyword.
+This is a full-stack project that parses Resume PDF files and displays a dashboard allowing a user to search for keywords. Doing so will populate a list of all candidates whos Resume contained the keyword.
 
 * Natural Language Processing to find the resume owner's name
 * Regex is used to determine the resume owner's email and phone
 
 ## What I Learned
 * I used Bootstrap for the first time. I have used Material-UI before, so this was a bit similar. I wanted to try out something new, so I went with Bootstrap.
-* I found a very interesting [npm package](https://www.npmjs.com/package/compromise) for Natural Text Processing, whic hI used to find out what the resume owner's name is. This library has a very extensive and interesting API, so I may end up using it in the future as well.
+* I found a very interesting [npm package](https://www.npmjs.com/package/compromise) for Natural Text Processing, which I used to find out what the resume owner's name is. This library has a very extensive and interesting API, so I may end up using it in the future as well.
 
 ## Getting Started
 
