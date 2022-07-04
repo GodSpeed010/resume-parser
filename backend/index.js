@@ -38,7 +38,7 @@ app.post('/parse', (req, res) => {
     console.log('Received request')
     console.log(req.files.pdfFile)
     pdf(req.files.pdfFile).then(result => {
-        let fileData = count(result.text);
+        let wordCounts = count(result.text);
         
         let phone = phoneRegex.exec(result.text)
         phone = phone == null ? 'null' : phone[0]
@@ -52,6 +52,7 @@ app.post('/parse', (req, res) => {
 
         files.push({
             fileName: pdfFile.name,
+            wordCounts: wordCounts,
             phone: phone,
             email: email,
             name: name
@@ -64,19 +65,19 @@ app.get('/search/:query', (req, res) => {
     let searchQuery = req.params.query;
 
     let queryMatches = []
-    // for each file in files:
-    // if has searchQuery as key: show it up. save index to it in files
-    // {name, phone, email, fileIndex}
 
-    res.json([
-    {searchQuery:searchQuery}, {b:3, phone: '', name: "Froggy Green", fileIndex: 0}
-    ]);
+    for (let i = 0; i < files.length; i++) {
+        let currFile = files[i];
+        if (searchQuery in currFile.wordCounts) {
+            queryMatches.push({...currFile, fileIndex: i})
+        }
+    }
+    
+    res.json(queryMatches);
 })
 
 app.get('/download/:fileIndex', (req, res) => {
-    console.log('Sending download to' + req.params.fileIndex)
     let filePath = fileFolder + files[req.params.fileIndex].fileName;
-    console.log('tempFilePath' + filePath);
 
     res.download(filePath);
 })
