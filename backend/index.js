@@ -39,7 +39,7 @@ app.post('/parse', (req, res) => {
     console.log(req.files.pdfFile)
     pdf(req.files.pdfFile).then(result => {
         let wordCounts = count(result.text);
-        
+
         let phone = phoneRegex.exec(result.text)
         phone = phone == null ? 'null' : phone[0]
 
@@ -62,17 +62,17 @@ app.post('/parse', (req, res) => {
 })
 
 app.get('/search/:query', (req, res) => {
-    let searchQuery = req.params.query;
+    let searchQuery = req.params.query.toLowerCase();
 
     let queryMatches = []
 
     for (let i = 0; i < files.length; i++) {
         let currFile = files[i];
         if (searchQuery in currFile.wordCounts) {
-            queryMatches.push({...currFile, fileIndex: i})
+            queryMatches.push({ ...currFile, fileIndex: i })
         }
     }
-    
+
     res.json(queryMatches);
 })
 
@@ -88,10 +88,11 @@ app.listen(port, () => {
 
 function count(str) {
     var obj = {};
-    
-    str.split(" ").forEach(function(el, i, arr) {
-      obj[el] = obj[el] ? ++obj[el] : 1;
+
+    str.split(" ").forEach(function (el, i, arr) {
+        let ele = el.toLowerCase();
+        obj[ele] = obj[ele] ? ++obj[ele] : 1;
     });
-    
+
     return obj;
 }
