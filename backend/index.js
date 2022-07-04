@@ -39,6 +39,7 @@ app.post('/parse', (req, res) => {
     console.log(req.files.pdfFile)
     pdf(req.files.pdfFile).then(result => {
         let wordCounts = count(result.text);
+        console.log(wordCounts);
 
         let phone = phoneRegex.exec(result.text)
         phone = phone == null ? 'null' : phone[0]
@@ -91,6 +92,8 @@ function count(str) {
 
     str.split(" ").forEach(function (el, i, arr) {
         let ele = el.toLowerCase();
+        ele.replace(/\W/g, '')
+
         obj[ele] = obj[ele] ? ++obj[ele] : 1;
     });
 
