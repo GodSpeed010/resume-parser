@@ -91,10 +91,11 @@ function count(str) {
 
     str.split(" ").forEach(function (el, i, arr) {
         let ele = el.toLowerCase();
-        ele.replace(/\W/g, '')
+        ele = ele.replace(/\W/g, '')
 
         obj[ele] = obj[ele] ? ++obj[ele] : 1;
     });
+    console.log(obj);
 
     return obj;
 }
